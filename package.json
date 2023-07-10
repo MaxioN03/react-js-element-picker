@@ -1,0 +1,38 @@
+{
+  "name": "react-js-element-picker",
+  "version": "0.1.0",
+  "description": "React TypeScript library for selecting elements on a web page",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc-watch",
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaxioN03/react-js-element-picker.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "maxion03",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaxioN03/react-js-element-picker/issues"
+  },
+  "homepage": "https://github.com/MaxioN03/react-js-element-picker#readme",
+  "devDependencies": {
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "nodemon": "^2.0.22",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsc-watch": "^6.0.4",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "js-element-picker": "^0.1.2"
+  }
+}
