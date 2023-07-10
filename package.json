@@ -15,7 +15,16 @@
     "url": "git+https://github.com/MaxioN03/react-js-element-picker.git"
   },
   "keywords": [
-    "react"
+    "react",
+    "element",
+    "pick",
+    "picker",
+    "web",
+    "browser",
+    "DOM",
+    "JavaScript",
+    "TypeScript",
+    "customization"
   ],
   "author": "maxion03",
   "license": "ISC",
