@@ -190,6 +190,21 @@ const HoveringOverlay = ({
 };
   ```
 
+  ```css
+  .hovering-overlay {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 0, 166, 0.504);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: monospace;
+}
+```
+
   And then you can use it:
 
 
