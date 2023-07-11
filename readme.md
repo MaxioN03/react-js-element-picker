@@ -22,4 +22,4 @@ yarn add react-js-element-picker
 
 ## Basic JavaScript/TypeScript library
 
-This library is based on another JavaScript/TypeScript library `js-element-picker`. If you need to use pure JS/TS or want to write a wrapper for another framework, you can get the library from this link
+This library is based on another JavaScript/TypeScript library `js-element-picker`. If you need to use pure JS/TS or want to write a wrapper for another framework, you can get the library [here](https://www.npmjs.com/package/js-element-picker)
