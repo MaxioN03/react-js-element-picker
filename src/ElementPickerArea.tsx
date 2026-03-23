@@ -2,34 +2,32 @@ import React, { PropsWithChildren, useEffect, useRef } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { ElementPicker } from 'js-element-picker';
 
-interface ElementPickerProps extends PropsWithChildren<unknown> {
-  picking?: boolean;
-  overlayDrawer?: (
-    position: {
-      x: number;
-      y: number;
-      width: number;
-      height: number;
-    } | null,
-    event: MouseEvent | null
-  ) => JSX.Element;
-  onTargetChange?: (target?: Element, event?: MouseEvent) => void;
-  onClick?: (target?: Element, event?: MouseEvent) => void;
-}
-
-type OverlayPosition = {
+export type ElementPickerOverlayPosition = {
   x: number;
   y: number;
   width: number;
   height: number;
 } | null;
 
+export interface ElementPickerAreaProps extends PropsWithChildren<unknown> {
+  picking?: boolean;
+  overlayDrawer?: (
+    position: ElementPickerOverlayPosition,
+    event: MouseEvent | null
+  ) => JSX.Element;
+  onTargetChange?: (target?: Element, event?: MouseEvent) => void;
+  onClick?: (target?: Element, event?: MouseEvent) => void;
+}
+
 function overlayDrawerConverter(
   overlayDrawer: (
-    position: OverlayPosition,
+    position: ElementPickerOverlayPosition,
     event: MouseEvent | null
   ) => JSX.Element
-): ((position: OverlayPosition, event: MouseEvent | null) => Element) {
+): ((
+  position: ElementPickerOverlayPosition,
+  event: MouseEvent | null
+) => Element) {
   return (position, event) => {
     const overlayDrawerElement = overlayDrawer(position, event);
     const elementString = ReactDOMServer.renderToString(overlayDrawerElement);
@@ -46,7 +44,7 @@ export const ElementPickerArea = ({
   overlayDrawer,
   onTargetChange,
   onClick,
-}: ElementPickerProps) => {
+}: ElementPickerAreaProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const picker = useRef<ElementPicker | null>(null);
 

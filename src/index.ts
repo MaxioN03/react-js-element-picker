@@ -1,3 +1,5 @@
-import { ElementPickerArea } from './ElementPickerArea';
-
-export { ElementPickerArea };
+export {
+  ElementPickerArea,
+  type ElementPickerAreaProps,
+  type ElementPickerOverlayPosition,
+} from './ElementPickerArea';
