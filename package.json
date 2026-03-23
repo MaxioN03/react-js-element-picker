@@ -9,7 +9,10 @@
   ],
   "scripts": {
     "build": "rollup -c",
-    "start": "rollup -c -w"
+    "start": "rollup -c -w",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "repository": {
     "type": "git",
@@ -34,16 +37,22 @@
   },
   "homepage": "https://github.com/MaxioN03/react-js-element-picker#readme",
   "devDependencies": {
+    "@testing-library/react": "^16.0.1",
+    "@vitest/coverage-v8": "^2.1.6",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "babel-core": "^6.26.3",
     "babel-runtime": "^6.26.0",
+    "jsdom": "^25.0.1",
     "nodemon": "^2.0.22",
     "rollup": "^3.26.2",
     "rollup-plugin-sass": "^1.12.19",
     "rollup-plugin-typescript2": "^0.35.0",
     "tsc-watch": "^6.0.4",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "vitest": "^2.1.6"
   },
   "peerDependencies": {
     "react": "^18.2.0",

@@ -19,6 +19,14 @@
     "allowSyntheticDefaultImports": true
     },
     "include": ["src/**/*"],
-    "exclude": ["node_modules", "dist", "example", "rollup.config.mjs"]
+    "exclude": [
+      "node_modules",
+      "dist",
+      "example",
+      "rollup.config.mjs",
+      "vitest.config.ts",
+      "src/**/*.test.ts",
+      "src/**/*.test.tsx"
+    ]
 }
   
