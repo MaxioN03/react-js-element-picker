@@ -45,23 +45,23 @@
   },
   "homepage": "https://github.com/MaxioN03/react-js-element-picker#readme",
   "devDependencies": {
-    "@testing-library/react": "^16.0.1",
-    "@vitest/coverage-v8": "^2.1.6",
-    "@types/react": "^18.2.14",
-    "@types/react-dom": "^18.2.6",
-    "jsdom": "^25.0.1",
-    "rollup": "^3.26.2",
-    "rollup-plugin-typescript2": "^0.35.0",
-    "typescript": "^5.1.6",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "vitest": "^2.1.6"
+    "@testing-library/react": "^16.3.2",
+    "@vitest/coverage-v8": "^4.1.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "jsdom": "^29.0.1",
+    "rollup": "^4.60.0",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^6.0.2",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "vitest": "^4.1.1"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^18.2.0 || ^19.0.0",
+    "react-dom": "^18.2.0 || ^19.0.0"
   },
   "dependencies": {
-    "js-element-picker": "^0.1.2"
+    "js-element-picker": "^1.0.1"
   }
 }

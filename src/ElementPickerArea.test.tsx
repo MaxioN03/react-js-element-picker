@@ -19,10 +19,12 @@ describe('ElementPickerArea', () => {
     startPicking.mockClear();
     stopPicking.mockClear();
     MockedElementPicker.mockClear();
-    MockedElementPicker.mockImplementation(() => ({
-      startPicking,
-      stopPicking,
-    }));
+    MockedElementPicker.mockImplementation(function MockElementPicker() {
+      return {
+        startPicking,
+        stopPicking,
+      };
+    });
   });
 
   it('constructs ElementPicker with the container element', async () => {

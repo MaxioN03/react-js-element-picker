@@ -17,5 +17,11 @@ export default {
     },
   ],
   plugins: [typescript({ objectHashIgnoreUnknownHack: true })],
-  external: ['react', 'react-dom', 'react-dom/server', 'js-element-picker'],
+  external: [
+    'react',
+    'react/jsx-runtime',
+    'react-dom',
+    'react-dom/server',
+    'js-element-picker',
+  ],
 };

@@ -1,4 +1,9 @@
-import React, { PropsWithChildren, useEffect, useRef } from 'react';
+import {
+  type PropsWithChildren,
+  type ReactElement,
+  useEffect,
+  useRef,
+} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { ElementPicker } from 'js-element-picker';
 
@@ -14,7 +19,7 @@ export interface ElementPickerAreaProps extends PropsWithChildren<unknown> {
   overlayDrawer?: (
     position: ElementPickerOverlayPosition,
     event: MouseEvent | null
-  ) => JSX.Element;
+  ) => ReactElement;
   onTargetChange?: (target?: Element, event?: MouseEvent) => void;
   onClick?: (target?: Element, event?: MouseEvent) => void;
 }
@@ -23,7 +28,7 @@ function overlayDrawerConverter(
   overlayDrawer: (
     position: ElementPickerOverlayPosition,
     event: MouseEvent | null
-  ) => JSX.Element
+  ) => ReactElement
 ): ((
   position: ElementPickerOverlayPosition,
   event: MouseEvent | null

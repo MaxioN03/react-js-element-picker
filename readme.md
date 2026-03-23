@@ -84,10 +84,12 @@ Renders a container; while `picking` is true, the user can hover and click to se
 ### `overlayDrawer`
 
 ```ts
+import type { ReactElement } from 'react';
+
 overlayDrawer?: (
   position: ElementPickerOverlayPosition,
   event: MouseEvent | null
-) => JSX.Element;
+) => ReactElement;
 ```
 
 `position` mirrors geometry from the hover event for convenience. The returned JSX is rendered to static markup for the overlay (no React hooks inside this subtree).
