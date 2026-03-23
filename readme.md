@@ -4,122 +4,142 @@
 React TypeScript library for selecting elements on a web page.
 
 <p align="center">
-  <img src="https://i.imgur.com/mGlNnAo.gif">
+  <img src="https://i.imgur.com/mGlNnAo.gif" alt="Demo">
 </p>
-
 
 ## Installation
 
-Install with `npm`:
 ```bash
 npm install react-js-element-picker
 ```
 
-Or `yarn`:
 ```bash
 yarn add react-js-element-picker
 ```
 
-## Basic JavaScript/TypeScript library
+Peer dependencies: `react` and `react-dom` (18+).
 
-This library is based on another JavaScript/TypeScript library `js-element-picker`. If you need to use pure JS/TS or want to write a wrapper for another framework, you can get the library [here](https://www.npmjs.com/package/js-element-picker)
+## Under the hood
 
-## ElementPickerArea
+This package wraps [`js-element-picker`](https://www.npmjs.com/package/js-element-picker). Use that if you need vanilla JS/TS or a non-React integration.
 
-Library contain React component `ElementPickerArea`. When you create it, it allows you to pick any child of this component 
+## Usage
 
-## Simple example
+```tsx
+import { useState } from 'react';
+import {
+  ElementPickerArea,
+  type ElementPickerAreaProps,
+} from 'react-js-element-picker';
 
-```javascript
-import { ElementPickerArea } from 'react-js-element-picker';
+function InspectorPanel() {
+  const [picking, setPicking] = useState(true);
 
-const MyComponentWithPickingArea = () => {
-  const [picking, setPicking] = useState<boolean>(true);
-  
-  <ElementPickerArea
-    picking={picking}
-    onClick={(target) => {
-      console.log('Goal target is: ', target?.tagName);
-      setPicking(false);
-    }}
-  >
-    <div>
-      <h1>First item</h1>
-      <h1>Second item</h1>
-    </div>
-  </ElementPickerArea>;
+  return (
+    <ElementPickerArea
+      picking={picking}
+      onClick={(target) => {
+        console.log('Picked:', target?.tagName);
+        setPicking(false);
+      }}
+    >
+      <div>
+        <h1>First item</h1>
+        <h1>Second item</h1>
+      </div>
+    </ElementPickerArea>
+  );
+}
+```
+
+### TypeScript types
+
+```ts
+import type {
+  ElementPickerAreaProps,
+  ElementPickerOverlayPosition,
+} from 'react-js-element-picker';
+
+const props: ElementPickerAreaProps = {
+  picking: true,
+  children: null,
 };
 ```
+
+`ElementPickerOverlayPosition` is `{ x, y, width, height } | null` — the `position` argument passed to `overlayDrawer`.
+
+## `ElementPickerArea`
+
+Renders a container; while `picking` is true, the user can hover and click to select a **child element** inside this area.
 
 ## Props
 
-| Name        | Type        | Default | Description
-|-------------|-------------|---------|-------------|
-| `picking`   | `boolean`   |         |if `true`, starts picking, if `false`, stops picking|
-| `overlayDrawer`   | `Function`   | Default overlay        |[See type below](#overlaydrawer-type). If `overlayDrawer` was passed, it will be drawn instead of default overlay on the hovering element|
-| `onTargetChange`   | `(target?: Element, event?: MouseEvent) => void;`   |         |callback that will fire every time when hovering target was changed|
-| `onClick`   | `(target: Element, event?: MouseEvent) => void;`   |         |callback that fires when user clicks on the picked element|
+| Name | Type | Description |
+|------|------|-------------|
+| `picking` | `boolean` | If `true`, picking is active; if `false`, it stops. |
+| `overlayDrawer` | See below | Custom hover overlay; omit for the default overlay. |
+| `onTargetChange` | `(target?: Element, event?: MouseEvent) => void` | Fires when the hovered target changes while picking. |
+| `onClick` | `(target?: Element, event?: MouseEvent) => void` | Fires when the user clicks a target while picking. |
 
-### overlayDrawer type:
-```javascript
+### `overlayDrawer`
+
+```ts
 overlayDrawer?: (
-    position: {
-      x: number;
-      y: number;
-      width: number;
-      height: number;
-    } | null,
-    event: MouseEvent | null
-  ) => JSX.Element;
+  position: ElementPickerOverlayPosition,
+  event: MouseEvent | null
+) => JSX.Element;
 ```
 
+`position` mirrors geometry from the hover event for convenience. The returned JSX is rendered to static markup for the overlay (no React hooks inside this subtree).
+
+---
 
 ## Examples
 
-<details>
-  <summary>Basic example</summary>
+### Basic: pick once, then stop
 
-  In this example you create `ElementPickerArea` component which starts picking immediately after initialization and after click on target logs it in console and stops picking
-
-  ```javascript
+```tsx
+import { useState } from 'react';
 import { ElementPickerArea } from 'react-js-element-picker';
 
-const MyComponentWithPickingArea = () => {
-  const [picking, setPicking] = useState<boolean>(true);
-  
-  <ElementPickerArea
-    picking={picking}
-    onClick={(target) => {
-      console.log('Goal target is: ', target?.tagName);
-      setPicking(false);
-    }}
-  >
-    <div>
-      <h1>First item</h1>
-      <h1>Second item</h1>
-    </div>
-  </ElementPickerArea>;
-};
-  ```
-</details>
+export function BasicExample() {
+  const [picking, setPicking] = useState(true);
 
-<details>
-  <summary>Start picking after custom event</summary>
+  return (
+    <ElementPickerArea
+      picking={picking}
+      onClick={(target) => {
+        console.log('Goal target:', target?.tagName);
+        setPicking(false);
+      }}
+    >
+      <div>
+        <h1>First item</h1>
+        <h1>Second item</h1>
+      </div>
+    </ElementPickerArea>
+  );
+}
+```
 
-  If you want to start picking on any event (for example, button click), you can use `picking` prop
+### Start picking after a button click
 
-  ```javascript
+```tsx
+import { useState } from 'react';
 import { ElementPickerArea } from 'react-js-element-picker';
 
-const MyComponentWithPickingArea = () => {
-  const [picking, setPicking] = useState<boolean>(true);
-  
-  <>
-      <button onClick={() => setPicking(true)}>Start picking</button>
+export function StartOnButtonExample() {
+  const [picking, setPicking] = useState(false);
+
+  return (
+    <>
+      <button type="button" onClick={() => setPicking(true)}>
+        Start picking
+      </button>
       <ElementPickerArea
         picking={picking}
         onClick={(target) => {
-          console.log('Goal target is: ', target?.tagName);
+          console.log('Goal target:', target?.tagName);
           setPicking(false);
         }}
       >
@@ -128,112 +148,110 @@ const MyComponentWithPickingArea = () => {
           <h1>Second item</h1>
         </div>
       </ElementPickerArea>
-  </>
-};
-  ```
-</details>
-
-<details>
-  <summary>Make something when target is changed</summary>
-
-  If you want to make something while user is picking elements, you can use `onTargetChange` prop. That is function which will fire every time when target was updated
-
-  ```javascript
-import { ElementPickerArea } from 'react-js-element-picker';
-
-const MyComponentWithPickingArea = () => {
-  const [picking, setPicking] = useState<boolean>(true);
-  
-  <ElementPickerArea
-    picking={picking}
-    onClick={(target) => {
-      console.log('Goal target is: ', target?.tagName);
-      setPicking(false);
-    }}
-    onTargetChange={(target) => {
-      console.log('Hovering target is: ', target?.tagName);
-    }}
-  >
-    <div>
-      <h1>First item</h1>
-      <h1>Second item</h1>
-    </div>
-  </ElementPickerArea>;
-};
-  ```
-</details>
-
-<details>
-  <summary>Custom overlay for hovering element</summary>
-
-  If you want to create custom overlay for hovering element, you need to pass `overlayDrawer()` prop. It gets `position` and `event` as arguments and must return an JSX.Element. Result element will appear inside of overlay, so you don't need to think about positioning. Actually `position` is some fields from `event` just to make it easier to get.
-
-  So first you need to create a component for overlay drawer:
-  
-
-  ```javascript
-const HoveringOverlay = ({
-    position,
-    event,
-}: {
-    position: { x: number; y: number } | null;
-    event: MouseEvent | null;
-}) => {
-    const target = event ? (event.target as Element) : null;
-
-    return (
-      <div className="hovering-overlay">
-        {target ? <span>{target?.tagName}</span> : null}
-        {position ? <span>{`${position.x}, ${position.y}`}</span> : null}
-      </div>
-    );
-};
-  ```
-
-  ```css
-  .hovering-overlay {
-    height: 100%;
-    width: 100%;
-    background-color: rgba(255, 0, 166, 0.504);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-family: monospace;
+    </>
+  );
 }
 ```
 
-  And then you can use it:
+### `onTargetChange` while hovering
 
-
-  ```javascript
+```tsx
+import { useState } from 'react';
 import { ElementPickerArea } from 'react-js-element-picker';
 
-const MyComponentWithPickingArea = () => {
-  const [picking, setPicking] = useState<boolean>(true);
-  
-  <ElementPickerArea
-    picking={picking}
-    onClick={(target) => {
-      console.log('Goal target is: ', target?.tagName);
-      setPicking(false);
-    }}
-    overlayDrawer={(position, event) => (
-        <HoveringOverlay position={position} event={event} />
-    )}
-  >
-    <div>
-      <h1>First item</h1>
-      <h1>Second item</h1>
-    </div>
-  </ElementPickerArea>;
-};
-  ```
+export function HoverPreviewExample() {
+  const [picking, setPicking] = useState(true);
 
-  As a result you'll see something like this:
-  <p align="center">
-  <img src="https://i.imgur.com/Q8bwEU7.gif">
-  </p>
-</details>
+  return (
+    <ElementPickerArea
+      picking={picking}
+      onClick={(target) => {
+        console.log('Clicked:', target?.tagName);
+        setPicking(false);
+      }}
+      onTargetChange={(target) => {
+        console.log('Hovering:', target?.tagName);
+      }}
+    >
+      <div>
+        <h1>First item</h1>
+        <h1>Second item</h1>
+      </div>
+    </ElementPickerArea>
+  );
+}
+```
+
+### Custom overlay (`overlayDrawer`)
+
+`overlayDrawer` must return JSX. The library renders it via `react-dom/server` for the native picker overlay, so treat it as static markup (avoid relying on hooks inside this inner component).
+
+```tsx
+import { useState } from 'react';
+import {
+  ElementPickerArea,
+  type ElementPickerOverlayPosition,
+} from 'react-js-element-picker';
+
+function HoveringOverlay({
+  position,
+  event,
+}: {
+  position: ElementPickerOverlayPosition;
+  event: MouseEvent | null;
+}) {
+  const target = event ? (event.target as Element) : null;
+
+  return (
+    <div className="hovering-overlay">
+      {target ? <span>{target.tagName}</span> : null}
+      {position ? (
+        <span>
+          {position.x}, {position.y}
+        </span>
+      ) : null}
+    </div>
+  );
+}
+
+export function CustomOverlayExample() {
+  const [picking, setPicking] = useState(true);
+
+  return (
+    <ElementPickerArea
+      picking={picking}
+      onClick={(target) => {
+        console.log('Goal target:', target?.tagName);
+        setPicking(false);
+      }}
+      overlayDrawer={(position, event) => (
+        <HoveringOverlay position={position} event={event} />
+      )}
+    >
+      <div>
+        <h1>First item</h1>
+        <h1>Second item</h1>
+      </div>
+    </ElementPickerArea>
+  );
+}
+```
+
+```css
+.hovering-overlay {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 0, 166, 0.504);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: monospace;
+}
+```
+
+<p align="center">
+  <img src="https://i.imgur.com/Q8bwEU7.gif" alt="Custom overlay demo">
+</p>
