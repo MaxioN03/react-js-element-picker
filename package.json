@@ -1,6 +1,6 @@
 {
   "name": "react-js-element-picker",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "React TypeScript library for selecting elements on a web page",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -17,6 +17,7 @@
   ],
   "scripts": {
     "build": "rollup -c",
+    "prepublishOnly": "npm run build && npm test",
     "start": "rollup -c -w",
     "test": "vitest run",
     "test:watch": "vitest",
